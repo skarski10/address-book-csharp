@@ -5,17 +5,17 @@ namespace AddressBook.Objects
   public class Number
   {
     private static List<Number> _instances = new List<Number> {};
-    private int _number;
+    private string _number;
     private int _id;
 
-    public Number(int contactNumber)
+    public Number(string contactNumber)
     {
       _number = contactNumber;
       _instances.Add(this);
       _id = _instances.Count;
     }
 
-    public int GetNumber()
+    public string GetNumber()
     {
       return _number;
     }

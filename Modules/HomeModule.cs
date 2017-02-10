@@ -42,7 +42,6 @@ namespace AddressBook
         model.Add("address", allAddresses);
         return View["new_address_form.cshtml", model];
       };
-
       Get["/contact/{id}/number/new"] = parameters => {
         Dictionary<string, object> model = new Dictionary<string, object>();
         Contact selectedContact = Contact.Find(parameters.id);
@@ -51,14 +50,13 @@ namespace AddressBook
         model.Add("address", allNumbers);
         return View["new_number_form.cshtml", model];
       };
-
       Post["/contact"] = _ => {
         Dictionary<string, object> model = new Dictionary<string, object>();
         Contact selectedContact = Contact.Find(Request.Form["contact-id"]);
         List<Address> contactAddress = selectedContact.GetAddress();
         List<Number> contactNumber = selectedContact.GetNumber();
         string addressEntered = Request.Form["contact-address"];
-        int numberEntered = Request.Form["contact-number"];
+        string numberEntered = Request.Form["contact-number"];
         Address newAddress = new Address(addressEntered);
         Number newNumber = new Number(numberEntered);
         contactAddress.Add(newAddress);
@@ -68,6 +66,8 @@ namespace AddressBook
         model.Add("number", contactNumber);
         return View["contact.cshtml", model];
       };
+
+
     }
   }
 }

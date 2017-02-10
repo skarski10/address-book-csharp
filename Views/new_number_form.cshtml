@@ -2,9 +2,14 @@
   Layout="Shared/_Layout.cshtml";
 }
 
+<div class="row">
+  <a href="/"><button type="submit" class="btn btn-primary">Home Page</button></a>
+  <a href="/add_contact"><button type="submit" class="btn btn-info">New Contact</button></a>
+</div>
+
 <h2>Add phone number:</h2>
 
-<form class="" action="" method="post">
+<form class="" action="/contact" method="post">
   <input id="contact-id" type="hidden" name="contact-id" value='/contact/@Model["contact"].GetId()'>
   <label for="contact-number">Phone number:</label>
   <input type="text" name="contact-number" id="contact-number" class="form-control">
