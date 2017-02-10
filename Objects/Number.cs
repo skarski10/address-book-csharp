@@ -2,22 +2,22 @@ using System.Collections.Generic;
 
 namespace AddressBook.Objects
 {
-  public class Address
+  public class Number
   {
-    private static List<Address> _instances = new List<Address> {};
-    private string _address;
+    private static List<Number> _instances = new List<Number> {};
+    private int _number;
     private int _id;
 
-    public Address(string contactAddress)
+    public Number(int contactNumber)
     {
-      _address = contactAddress;
+      _number = contactNumber;
       _instances.Add(this);
       _id = _instances.Count;
     }
 
-    public string GetAddress()
+    public int GetNumber()
     {
-      return _address;
+      return _number;
     }
 
     public int GetId()
@@ -25,7 +25,7 @@ namespace AddressBook.Objects
       return _id;
     }
 
-    public static List<Address> GetAll()
+    public static List<Number> GetAll()
     {
       return _instances;
     }
@@ -34,7 +34,7 @@ namespace AddressBook.Objects
       _instances.Clear();
     }
 
-    public static Address Find(int searchId)
+    public static Number Find(int searchId)
     {
       return _instances[searchId-1];
     }
