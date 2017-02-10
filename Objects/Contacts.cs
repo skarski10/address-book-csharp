@@ -7,15 +7,15 @@ namespace AddressBook.Objects
     private static List<Contact> _instances = new List<Contact> {};
     private string _name;
     private int _id;
-    private List<Address> _addresss;
+    private List<Address> _addresses;
     private List<Number> _numbers;
 
-    public Contact(string contactName, string contactAddress, int contactNumber)
+    public Contact(string contactName)
     {
       _name = contactName;
       _instances.Add(this);
-      _id = instances.Count;
-      _addresses = new List<Adress>{};
+      _id = _instances.Count;
+      _addresses = new List<Address>{};
       _numbers = new List<Number>{};
     }
 
@@ -33,7 +33,7 @@ namespace AddressBook.Objects
     {
       return _addresses;
     }
-    public void AddAddress(Address adress)
+    public void AddAddress(Address address)
     {
       _addresses.Add(address);
     }

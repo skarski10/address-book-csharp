@@ -9,7 +9,7 @@ namespace AddressBook
     public HomeModule()
     {
       Get["/"] = _ => {
-        List<Contacts> allcontacts = Contact.GetAll();
+        List<Contact> allcontacts = Contact.GetAll();
         return View["index.cshtml"];
       };
 
@@ -18,53 +18,55 @@ namespace AddressBook
       };
 
       Post["/"] = _ => {
-        Contact newContact = newContact(Request.Form)
+        Contact newContact = new Contact(Request.Form["contact-name"]);
         List<Contact> allContacts = Contact.GetAll();
-        return View["/"];
+        return View["index.cshtml", allContacts];
       };
 
       Get["/contact/{id}"] = parameters => {
-        Dictionay<string, object> model = new Dictionary<string, object>();
+        Dictionary<string, object> model = new Dictionary<string, object>();
         Contact selectedContact = Contact.Find(parameters.id);
         List<Address> contactAddresses = selectedContact.GetAddress();
+        List<Number> contactNumber = selectedContact.GetNumber();
         model.Add("contact", selectedContact);
-        model.Add("addresses", contactAddresses);
-        return View["contact.cshtml"];
+        model.Add("address", contactAddresses);
+        model.Add("number", contactNumber);
+        return View["contact.cshtml", model];
       };
 
       Get["/contact/{id}/address/new"] = parameters => {
-        Dictionay<string, object> model = new Dictionay<string, object>();
+        Dictionary<string, object> model = new Dictionary<string, object>();
         Contact selectedContact = Contact.Find(parameters.id);
         List<Address> allAddresses = selectedContact.GetAddress();
         model.Add("contact", selectedContact);
         model.Add("address", allAddresses);
-        return View["new_address_form.cshtml"];
+        return View["new_address_form.cshtml", model];
       };
 
       Get["/contact/{id}/number/new"] = parameters => {
-        Dictionay<string, object> model = new Dictionay<string, object>();
+        Dictionary<string, object> model = new Dictionary<string, object>();
         Contact selectedContact = Contact.Find(parameters.id);
-        List<Address> allNumbers = selectedContact.GetNumber();
+        List<Number> allNumbers = selectedContact.GetNumber();
         model.Add("contact", selectedContact);
         model.Add("address", allNumbers);
-        return View["new_number_form.cshtml"];
+        return View["new_number_form.cshtml", model];
       };
 
       Post["/contact"] = _ => {
-        Dictionay<string, object> model = new Dictionay<string, object>();
+        Dictionary<string, object> model = new Dictionary<string, object>();
         Contact selectedContact = Contact.Find(Request.Form["contact-id"]);
         List<Address> contactAddress = selectedContact.GetAddress();
         List<Number> contactNumber = selectedContact.GetNumber();
         string addressEntered = Request.Form["contact-address"];
-        string numberEntered = Request.Form["contact-number"];
+        int numberEntered = Request.Form["contact-number"];
         Address newAddress = new Address(addressEntered);
         Number newNumber = new Number(numberEntered);
         contactAddress.Add(newAddress);
         contactNumber.Add(newNumber);
         model.Add("contact", selectedContact);
-        model.Add("address", contactAdress);
+        model.Add("address", contactAddress);
         model.Add("number", contactNumber);
-        return View["/contact"];
+        return View["contact.cshtml", model];
       };
     }
   }

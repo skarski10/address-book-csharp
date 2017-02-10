@@ -2,7 +2,18 @@
   Layout="Shared/_Layout.cshtml";
 }
 
-  <div class="row">
-    
-  </div>
+<div class="row">
+  <h1>Contacts:</h1>
 </div>
+
+@if(@Model !=null)
+{
+  <div class="row">
+    <ol>
+      @foreach (var contact in Model)
+      {
+        <li><a href="/contact/@contact.GetId()">@contact.GetName()</a></li>
+      }
+    </ol>
+  </div>
+}
