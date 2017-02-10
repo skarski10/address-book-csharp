@@ -9,8 +9,8 @@ namespace AddressBook
     public HomeModule()
     {
       Get["/"] = _ => {
-        List<Contact> allcontacts = Contact.GetAll();
-        return View["index.cshtml"];
+        List<Contact> allContacts = Contact.GetAll();
+        return View["index.cshtml", allContacts];
       };
 
       Get["/add_contact"] = _ => {
@@ -47,27 +47,37 @@ namespace AddressBook
         Contact selectedContact = Contact.Find(parameters.id);
         List<Number> allNumbers = selectedContact.GetNumber();
         model.Add("contact", selectedContact);
-        model.Add("address", allNumbers);
+        model.Add("number", allNumbers);
         return View["new_number_form.cshtml", model];
       };
+
       Post["/contact"] = _ => {
         Dictionary<string, object> model = new Dictionary<string, object>();
         Contact selectedContact = Contact.Find(Request.Form["contact-id"]);
         List<Address> contactAddress = selectedContact.GetAddress();
-        List<Number> contactNumber = selectedContact.GetNumber();
         string addressEntered = Request.Form["contact-address"];
-        string numberEntered = Request.Form["contact-number"];
         Address newAddress = new Address(addressEntered);
-        Number newNumber = new Number(numberEntered);
         contactAddress.Add(newAddress);
-        contactNumber.Add(newNumber);
         model.Add("contact", selectedContact);
         model.Add("address", contactAddress);
+        return View["contact.cshtml", model];
+      };
+      Post["/contact"] = _ => {
+        Dictionary<string, object> model = new Dictionary<string, object>();
+        Contact selectedContact = Contact.Find(Request.Form["contact-id"]);
+        // List<Address> contactAddress = selectedContact.GetAddress();
+        List<Number> contactNumber = selectedContact.GetNumber();
+        // string addressEntered = Request.Form["contact-address"];
+        string numberEntered = Request.Form["contact-number"];
+        // Address newAddress = new Address(addressEntered);
+        Number newNumber = new Number(numberEntered);
+        // contactAddress.Add(newAddress);
+        contactNumber.Add(newNumber);
+        model.Add("contact", selectedContact);
+        // model.Add("address", contactAddress);
         model.Add("number", contactNumber);
         return View["contact.cshtml", model];
       };
-
-
     }
   }
 }

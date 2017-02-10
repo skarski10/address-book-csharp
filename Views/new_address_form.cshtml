@@ -10,8 +10,8 @@
 <h2>Add an address:</h2>
 
 <form action="/contact" method="post">
-  <input id="contact-id" type="hidden" name="contact-id" value='/contact/@Model["contact"].GetId()'>
+  <input id="contact-id" type="hidden" name="contact-id" value='@Model["contact"].GetId()'>
   <label for="contact-address">Address:</label>
   <input type="text" name="contact-address" id="contact-address" class="form-control">
-  <button type="submit" name="button">Add</button>
+  <button type="submit" class="btn">Add</button>
 </form>
