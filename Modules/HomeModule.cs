@@ -62,7 +62,12 @@ namespace AddressBook
         model.Add("address", contactAddress);
         return View["contact.cshtml", model];
       };
-      Post["/contact"] = _ => {
+
+      Get["/contact/numbers"] = _ => {
+        List<Number> allNumbers = Number.GetAll();
+        return View["contact_number.cshtml", allNumbers];
+      };
+      Post["/contact/number"] = _ => {
         Dictionary<string, object> model = new Dictionary<string, object>();
         Contact selectedContact = Contact.Find(Request.Form["contact-id"]);
         // List<Address> contactAddress = selectedContact.GetAddress();
@@ -74,9 +79,9 @@ namespace AddressBook
         // contactAddress.Add(newAddress);
         contactNumber.Add(newNumber);
         model.Add("contact", selectedContact);
-        // model.Add("address", contactAddress);
+        // model.Add("address", null);
         model.Add("number", contactNumber);
-        return View["contact.cshtml", model];
+        return View["contact_number.cshtml", model];
       };
     }
   }
