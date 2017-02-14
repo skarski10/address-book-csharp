@@ -5,12 +5,12 @@
 <div class="row">
   <a href="/"><button type="submit" class="btn btn-primary">Home Page</button></a>
   <a href="/add_contact"><button type="submit" class="btn btn-info">New Contact</button></a>
-  <a href="/contact/@Model["contact"].GetId()/address/new"><button type="submit" class="btn btn-primary">Add address</button></a>
-  <a href="/contact/@Model["contact"].GetId()/number/new"><button type="submit" class="btn btn-info">Add number</button></a>
+  <a href="/contact/@Model.GetId()/address/new"><button type="submit" class="btn btn-primary">Add address</button></a>
+  <a href="/contact/@Model.GetId()/number/new"><button type="submit" class="btn btn-info">Add number</button></a>
 </div>
 
 <div class="row">
-  <h2>Here are your addresses and phone numbers for @Model["contact"].GetName():</h2>
+  <h2>Here are your addresses and phone numbers for @Model.GetName():</h2>
 </div>
 
 <div class="row">
@@ -18,13 +18,24 @@
     <h3>Addresses:</h3>
     <div class="row">
       <ul>
-      @foreach (var address in @Model["address"])
+      @foreach (var address in @Model)
       {
         <li>@address.GetAddress()</li>
       }
       </ul>
     </div>
   </div>
+  <div class="col-md-6" id="numbers">
+  <h3>Numbers:</h3>
+  <div class="row">
+    <ul>
+    @foreach (var number in @Model)
+    {
+      <li>@number.GetNumber()</li>
+    }
+    </ul>
+  </div>
+</div>
 </div>
 
 <p>
