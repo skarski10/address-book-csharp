@@ -51,37 +51,33 @@ namespace AddressBook
         return View["new_number_form.cshtml", model];
       };
 
-      Post["/contact"] = _ => {
-        Dictionary<string, object> model = new Dictionary<string, object>();
+//       Post["/contact"] = _ => {
+//         Dictionary<string, object> model = new Dictionary<string, object>();
+//         Contact selectedContact = Contact.Find(Request.Form["contact-id"]);
+//         List<Address> contactAddress = selectedContact.GetAddress();
+//         string addressEntered = Request.Form["contact-address"];
+//         Address newAddress = new Address(addressEntered);
+//         contactAddress.Add(newAddress);
+//         model.Add("contact", selectedContact);
+//         model.Add("address", contactAddress);
+//         return View["contact.cshtml", model];
+//       };
+
+//       Get["/contact/numbers"] = _ => {
+//         List<Number> allNumbers = Number.GetAll();
+//         return View["contact_number.cshtml", allNumbers];
+//       };
+      Post["/contact/number"] = _ => {
         Contact selectedContact = Contact.Find(Request.Form["contact-id"]);
         List<Address> contactAddress = selectedContact.GetAddress();
-        string addressEntered = Request.Form["contact-address"];
-        Address newAddress = new Address(addressEntered);
-        contactAddress.Add(newAddress);
-        model.Add("contact", selectedContact);
-        model.Add("address", contactAddress);
-        return View["contact.cshtml", model];
-      };
-
-      Get["/contact/numbers"] = _ => {
-        List<Number> allNumbers = Number.GetAll();
-        return View["contact_number.cshtml", allNumbers];
-      };
-      Post["/contact/number"] = _ => {
-        Dictionary<string, object> model = new Dictionary<string, object>();
-        Contact selectedContact = Contact.Find(Request.Form["contact-id"]);
-        // List<Address> contactAddress = selectedContact.GetAddress();
         List<Number> contactNumber = selectedContact.GetNumber();
-        // string addressEntered = Request.Form["contact-address"];
+        string addressEntered = Request.Form["contact-address"];
         string numberEntered = Request.Form["contact-number"];
-        // Address newAddress = new Address(addressEntered);
+        Address newAddress = new Address(addressEntered);
         Number newNumber = new Number(numberEntered);
-        // contactAddress.Add(newAddress);
+        contactAddress.Add(newAddress);
         contactNumber.Add(newNumber);
-        model.Add("contact", selectedContact);
-        // model.Add("address", null);
-        model.Add("number", contactNumber);
-        return View["contact_number.cshtml", model];
+        return View["contact_number.cshtml", selectedContact];
       };
     }
   }
