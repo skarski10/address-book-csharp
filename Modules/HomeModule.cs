@@ -31,7 +31,7 @@ namespace AddressBook
 //         model.Add("contact", selectedContact);
 //         model.Add("address", contactAddresses);
 //         model.Add("number", contactNumber);
-        return View["contact.cshtml", model];
+        return View["contact.cshtml", selectedContact];
       };
 
       Get["/contact/{id}/address/new"] = parameters => {
