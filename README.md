@@ -1,7 +1,6 @@
 #Address Book
 **C# first week Friday review for Epicodus, 02.10.17**
 ###By Kory Skarbek
-###[Web Page] (http://skarski10.github.io/address-book-csharp)
 ##Description
 The program will let you add contacts to an address book.
 
